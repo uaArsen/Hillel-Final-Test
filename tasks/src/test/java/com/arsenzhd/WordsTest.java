@@ -12,9 +12,11 @@ import static com.arsenzhd.services.WordsServices.findDistinctWordsInFile;
 
 /**
  * Created by ArsZhd on 08.04.17.
+ * Tests for WordsServices.
  */
 public class WordsTest {
     private static Set<String> words;
+
     @BeforeClass
     public static void init() {
         words = new HashSet<>();
@@ -31,4 +33,16 @@ public class WordsTest {
                         +
                         "/src/main/resources/test.txt", ".*[.:,/;].*"));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindDistinctWordsInNull() throws IOException {
+        findDistinctWordsInFile(null, ".*[.:,/;].*");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindDistinctNullInFile() throws IOException {
+        findDistinctWordsInFile("/path", null);
+    }
+
+
 }
